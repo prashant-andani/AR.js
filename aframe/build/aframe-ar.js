@@ -6615,23 +6615,23 @@ ARjs.SessionDebugUI = function(arSession, tangoPointCloud){
 	//		current-tracking-backend
 	//////////////////////////////////////////////////////////////////////////////
 
-	// var domElement = document.createElement('span')
-	// domElement.style.display = 'block'
-	// this.domElement.appendChild(domElement)
-	// domElement.innerHTML = '<b>trackingBackend</b> : ' +trackingBackend
+	var domElement = document.createElement('span')
+	domElement.style.display = 'block'
+	this.domElement.appendChild(domElement)
+	domElement.innerHTML = '<b>trackingBackend</b> : ' +trackingBackend
 	
-	// //////////////////////////////////////////////////////////////////////////////
-	// //		augmented-websites
-	// //////////////////////////////////////////////////////////////////////////////
+	//////////////////////////////////////////////////////////////////////////////
+	//		augmented-websites
+	//////////////////////////////////////////////////////////////////////////////
 
-	// if( ARjs.SessionDebugUI.AugmentedWebsiteURL ){
-	// 	var domElement = document.createElement('a')
-	// 	domElement.innerHTML = 'Share on augmented-websites'
-	// 	domElement.style.display = 'block'
-	// 	// domElement.setAttribute('target', '_blank')
-	// 	domElement.href = ARjs.SessionDebugUI.AugmentedWebsiteURL + '?'+location.href
-	// 	this.domElement.appendChild(domElement)						
-	// }
+	if( ARjs.SessionDebugUI.AugmentedWebsiteURL ){
+		var domElement = document.createElement('a')
+		domElement.innerHTML = 'Share on augmented-websites'
+		domElement.style.display = 'block'
+		// domElement.setAttribute('target', '_blank')
+		domElement.href = ARjs.SessionDebugUI.AugmentedWebsiteURL + '?'+location.href
+		this.domElement.appendChild(domElement)						
+	}
 
 	//////////////////////////////////////////////////////////////////////////////
 	//		toggle-point-cloud
@@ -6701,30 +6701,30 @@ ARjs.AnchorDebugUI = function(arAnchor){
 	//		current-tracking-backend
 	//////////////////////////////////////////////////////////////////////////////
 
-	// var domElement = document.createElement('span')
-	// domElement.style.display = 'block'
-	// this.domElement.appendChild(domElement)
-	// domElement.innerHTML = '<b>markersAreaEnabled</b> :' +arAnchor.parameters.markersAreaEnabled
+	var domElement = document.createElement('span')
+	domElement.style.display = 'block'
+	this.domElement.appendChild(domElement)
+	domElement.innerHTML = '<b>markersAreaEnabled</b> :' +arAnchor.parameters.markersAreaEnabled
 
-	// //////////////////////////////////////////////////////////////////////////////
-	// //		toggle-marker-helper
-	// //////////////////////////////////////////////////////////////////////////////
+	//////////////////////////////////////////////////////////////////////////////
+	//		toggle-marker-helper
+	//////////////////////////////////////////////////////////////////////////////
 
-	// if( arAnchor.parameters.markersAreaEnabled ){
-	// 	var domElement = document.createElement('button')
-	// 	domElement.style.display = 'block'
-	// 	this.domElement.appendChild(domElement)
+	if( arAnchor.parameters.markersAreaEnabled ){
+		var domElement = document.createElement('button')
+		domElement.style.display = 'block'
+		this.domElement.appendChild(domElement)
 
-	// 	domElement.id= 'buttonToggleMarkerHelpers'
-	// 	domElement.innerHTML = 'toggle-marker-helper'
-	// 	domElement.href='javascript:void(0)'
+		domElement.id= 'buttonToggleMarkerHelpers'
+		domElement.innerHTML = 'toggle-marker-helper'
+		domElement.href='javascript:void(0)'
 
-	// 	var subMarkerHelpersVisible = false
-	// 	domElement.addEventListener('click', function(){
-	// 		subMarkerHelpersVisible = subMarkerHelpersVisible ? false : true
-	// 		arAnchor.markersArea.setSubMarkersVisibility(subMarkerHelpersVisible)		
-	// 	})
-	// }
+		var subMarkerHelpersVisible = false
+		domElement.addEventListener('click', function(){
+			subMarkerHelpersVisible = subMarkerHelpersVisible ? false : true
+			arAnchor.markersArea.setSubMarkersVisibility(subMarkerHelpersVisible)		
+		})
+	}
 	
 	//////////////////////////////////////////////////////////////////////////////
 	//		Learn-new-marker-area
@@ -8198,22 +8198,12 @@ AFRAME.registerComponent('arjs-anchor', {
 				arProfile.defaultMarkerParameters.barcodeValue = 1001	
 				arProfile.defaultMarkerParameters.markersAreaEnabled = true
 			}
-			// else if( _this.data.preset === 'batman' ){
-      //   arProfile.defaultMarkerParameters.type = 'pattern'
-      //   arProfile.defaultMarkerParameters.patternUrl = _this.data.patternUrl;
-      //   arProfile.defaultMarkerParameters.markersAreaEnabled = false
-      //   }
-      // else if( _this.data.preset === 'apple' ){
-      //   arProfile.defaultMarkerParameters.type = 'pattern'
-      //   arProfile.defaultMarkerParameters.patternUrl = _this.data.patternUrl;
-      //   arProfile.defaultMarkerParameters.markersAreaEnabled = false
-			// 	}
-				else if( _this.data.preset === 'custom' ){
-					arProfile.defaultMarkerParameters.type = 'pattern'
-					arProfile.defaultMarkerParameters.patternUrl = _this.data.patternUrl;
-					arProfile.defaultMarkerParameters.markersAreaEnabled = false
-					}
-      else {
+			else if( _this.data.preset === 'custom' ){
+				arProfile.defaultMarkerParameters.type = 'pattern'
+				arProfile.defaultMarkerParameters.patternUrl = _this.data.patternUrl
+				arProfile.defaultMarkerParameters.markersAreaEnabled = false
+			}
+			else {
 				// console.assert( this.data.preset === '', 'illegal preset value '+this.data.preset)
 			}		
 
@@ -8232,14 +8222,16 @@ AFRAME.registerComponent('arjs-anchor', {
 			//////////////////////////////////////////////////////////////////////////////
 			if( arjsSystem.data.debugUIEnabled ){
 				// get or create containerElement
-				//var containerElement = document.querySelector('#arjsDebugUIContainer')
-				// if( containerElement === null ){
-					
-				// 	//document.body.appendChild(containerElement)
-				// }
+				var containerElement = document.querySelector('#arjsDebugUIContainer')
+				if( containerElement === null ){
+					containerElement = document.createElement('div')
+					containerElement.id = 'arjsDebugUIContainer'
+					containerElement.setAttribute('style', 'position: fixed; bottom: 10px; width:100%; text-align: center; z-index: 1; color: grey;')
+					document.body.appendChild(containerElement)
+				}
 				// create anchorDebugUI
 				var anchorDebugUI = new ARjs.AnchorDebugUI(arAnchor)
-				//containerElement.appendChild(anchorDebugUI.domElement)		
+				containerElement.appendChild(anchorDebugUI.domElement)		
 			}
 		}, 1000/60)
 	},
@@ -8650,13 +8642,15 @@ AFRAME.registerSystem('arjs', {
 				// get or create containerElement
 				var containerElement = document.querySelector('#arjsDebugUIContainer')
 				if( containerElement === null ){
-					
-					//document.body.appendChild(containerElement)
+					containerElement = document.createElement('div')
+					containerElement.id = 'arjsDebugUIContainer'
+					containerElement.setAttribute('style', 'position: fixed; bottom: 10px; width:100%; text-align: center; z-index: 1;color: grey;')
+					document.body.appendChild(containerElement)
 				}
 
 				// create sessionDebugUI
-				//var sessionDebugUI = new ARjs.SessionDebugUI(arSession)
-				//containerElement.appendChild(sessionDebugUI.domElement)
+				var sessionDebugUI = new ARjs.SessionDebugUI(arSession)
+				containerElement.appendChild(sessionDebugUI.domElement)
 			}
 		})
 
