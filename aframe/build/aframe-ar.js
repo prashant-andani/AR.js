@@ -384,7 +384,8 @@ var Qb=[Ik,Zh,_h,Qj,Qi,Pi,Ri,Ag,sg,qg,rg,yg,kh,jh,Oi,Mj];var Rb=[Jk,ki,ji,gi];va
 		@param {function} onError - The error callback. Called with the encountered error if the load fails.
 	*/
 	ARController.prototype.loadMarker = function(markerURL, onSuccess, onError) {
-		
+		console.log('Marker URL');
+		console.log(markerURL);
 		return artoolkit.addMarker(this.id, markerURL, onSuccess, onError);
 	};
 
@@ -6621,7 +6622,7 @@ ARjs.SessionDebugUI = function(arSession, tangoPointCloud){
 	var domElement = document.createElement('span')
 	domElement.style.display = 'block'
 	this.domElement.appendChild(domElement)
-	domElement.innerHTML = '<b>trackingBackend</b> : ' +trackingBackend
+	domElement.innerHTML = ''
 	
 	//////////////////////////////////////////////////////////////////////////////
 	//		augmented-websites
@@ -6629,11 +6630,11 @@ ARjs.SessionDebugUI = function(arSession, tangoPointCloud){
 
 	if( ARjs.SessionDebugUI.AugmentedWebsiteURL ){
 		var domElement = document.createElement('a')
-		domElement.innerHTML = 'Share on augmented-websites'
+		domElement.innerHTML = ''
 		domElement.style.display = 'block'
 		// domElement.setAttribute('target', '_blank')
 		domElement.href = ARjs.SessionDebugUI.AugmentedWebsiteURL + '?'+location.href
-		this.domElement.appendChild(domElement)						
+		//this.domElement.appendChild(domElement)						
 	}
 
 	//////////////////////////////////////////////////////////////////////////////
@@ -6642,10 +6643,10 @@ ARjs.SessionDebugUI = function(arSession, tangoPointCloud){
 
 	if( trackingBackend === 'tango' && tangoPointCloud ){
 		var domElement = document.createElement('button')
-		this.domElement.appendChild(domElement)
+		//this.domElement.appendChild(domElement)
 
 		domElement.id= 'buttonTangoTogglePointCloud'
-		domElement.innerHTML = 'toggle-point-cloud'
+		domElement.innerHTML = ''
 		domElement.href='javascript:void(0)'
 
 		domElement.addEventListener('click', function(){
@@ -6706,8 +6707,8 @@ ARjs.AnchorDebugUI = function(arAnchor){
 
 	var domElement = document.createElement('span')
 	domElement.style.display = 'block'
-	this.domElement.appendChild(domElement)
-	domElement.innerHTML = '<b>markersAreaEnabled</b> :' +arAnchor.parameters.markersAreaEnabled
+	//this.domElement.appendChild(domElement)
+	//domElement.innerHTML = '' +arAnchor.parameters.markersAreaEnabled
 
 	//////////////////////////////////////////////////////////////////////////////
 	//		toggle-marker-helper
@@ -6716,10 +6717,10 @@ ARjs.AnchorDebugUI = function(arAnchor){
 	if( arAnchor.parameters.markersAreaEnabled ){
 		var domElement = document.createElement('button')
 		domElement.style.display = 'block'
-		this.domElement.appendChild(domElement)
+	//	this.domElement.appendChild(domElement)
 
 		domElement.id= 'buttonToggleMarkerHelpers'
-		domElement.innerHTML = 'toggle-marker-helper'
+		domElement.innerHTML = ''
 		domElement.href='javascript:void(0)'
 
 		var subMarkerHelpersVisible = false
@@ -6736,7 +6737,7 @@ ARjs.AnchorDebugUI = function(arAnchor){
 	if( arAnchor.parameters.markersAreaEnabled ){
 		var domElement = document.createElement('button')
 		domElement.style.display = 'block'
-		this.domElement.appendChild(domElement)
+		//this.domElement.appendChild(domElement)
 
 		domElement.id = 'buttonMarkersAreaLearner'
 		domElement.innerHTML = 'Learn-new-marker-area'
@@ -6755,7 +6756,7 @@ ARjs.AnchorDebugUI = function(arAnchor){
 	if( arAnchor.parameters.markersAreaEnabled ){
 		var domElement = document.createElement('button')
 		domElement.style.display = 'block'
-		this.domElement.appendChild(domElement)
+		//this.domElement.appendChild(domElement)
 
 		domElement.id = 'buttonMarkersAreaReset'
 		domElement.innerHTML = 'Reset-marker-area'
@@ -8230,7 +8231,7 @@ AFRAME.registerComponent('arjs-anchor', {
 					containerElement = document.createElement('div')
 					containerElement.id = 'arjsDebugUIContainer'
 					containerElement.setAttribute('style', 'position: fixed; bottom: 10px; width:100%; text-align: center; z-index: 1; color: grey;')
-					document.body.appendChild(containerElement)
+					//document.body.appendChild(containerElement)
 				}
 				// create anchorDebugUI
 				var anchorDebugUI = new ARjs.AnchorDebugUI(arAnchor)
@@ -8648,7 +8649,7 @@ AFRAME.registerSystem('arjs', {
 					containerElement = document.createElement('div')
 					containerElement.id = 'arjsDebugUIContainer'
 					containerElement.setAttribute('style', 'position: fixed; bottom: 10px; width:100%; text-align: center; z-index: 1;color: grey;')
-					document.body.appendChild(containerElement)
+					//document.body.appendChild(containerElement)
 				}
 
 				// create sessionDebugUI
