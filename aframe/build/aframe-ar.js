@@ -384,6 +384,7 @@ var Qb=[Ik,Zh,_h,Qj,Qi,Pi,Ri,Ag,sg,qg,rg,yg,kh,jh,Oi,Mj];var Rb=[Jk,ki,ji,gi];va
 		@param {function} onError - The error callback. Called with the encountered error if the load fails.
 	*/
 	ARController.prototype.loadMarker = function(markerURL, onSuccess, onError) {
+		
 		return artoolkit.addMarker(this.id, markerURL, onSuccess, onError);
 	};
 
@@ -1459,6 +1460,8 @@ var Qb=[Ik,Zh,_h,Qj,Qi,Pi,Ri,Ag,sg,qg,rg,yg,kh,jh,Oi,Mj];var Rb=[Jk,ki,ji,gi];va
 	var marker_count = 0;
 	function addMarker(arId, url, callback) {
 		var filename = '/marker_' + marker_count++;
+		console.log(url);
+		console.log(filename);
 		ajax(url, filename, function() {
 			var id = Module._addMarker(arId, filename);
 			if (callback) callback(id);
